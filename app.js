@@ -74,7 +74,9 @@ const sessionConfig = {
 
 app.use(session(sessionConfig));
 app.use(flash());
-app.use(helmet());
+app.use(
+  helmet({ contentSecurityPolicy: false, crossOriginEmbedderPolicy: false })
+);
 // { contentSecurityPolicy: false, crossOriginEmbedderPolicy: false }
 const scriptSrcUrls = [
   'https://stackpath.bootstrapcdn.com/',
