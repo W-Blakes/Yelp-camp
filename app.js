@@ -74,10 +74,8 @@ const sessionConfig = {
 
 app.use(session(sessionConfig));
 app.use(flash());
-app.use(
-  helmet({ contentSecurityPolicy: false, crossOriginEmbedderPolicy: false })
-);
-
+app.use(helmet());
+// { contentSecurityPolicy: false, crossOriginEmbedderPolicy: false }
 const scriptSrcUrls = [
   'https://stackpath.bootstrapcdn.com/',
   'https://api.tiles.mapbox.com/',
