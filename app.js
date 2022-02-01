@@ -7,7 +7,6 @@ const path = require('path');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
 const session = require('express-session');
-const MongoDBStore = require('connect-mongodb-session')(session);
 const flash = require('connect-flash');
 const ExpressError = require('./utility/ExpressError');
 const methodOverride = require('method-override');
@@ -15,18 +14,18 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user');
 const helmet = require('helmet');
-
 const mongoSanitize = require('express-mongo-sanitize');
-
 const userRoutes = require('./routes/users');
 const campgroundRoutes = require('./routes/campgrounds');
 const reviewRoutes = require('./routes/reviews');
 
-const dbUrl = process.env.DB_URL || 'mongodb://0.0.0.0:27017/yelp-camp';
+const MongoDBStore = require('connect-session')(session);
+
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
 mongoose.connect(dbUrl);
-// mongodb://localhost:27017/yelp-camp
-// process.env.DB_URL
+
 const db = mongoose.connection;
+
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
   console.log('Database connected');
